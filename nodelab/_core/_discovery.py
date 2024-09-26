@@ -22,6 +22,10 @@ def save_cache(data):
         yaml.dump(data, file, default_flow_style=False)
 
 
+def clear_cache():
+    os.remove(CACHE_FILE)
+
+
 def scan_directory_for_nodes(dir):
     cache = load_cache()
     node_file_map = cache.get("node_file_map", {})

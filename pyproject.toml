@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools", "wheel"]
+requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,4 +8,7 @@ version = "0.1.0"
 description = "TODO."
 authors = [
     { name = "Sinan Kurtyigit", email = "sinan.kurtyigit@gmail.com" }
+]
+dependencies = [
+    "pyaml"
 ]

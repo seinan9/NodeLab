@@ -4,7 +4,7 @@ import tempfile
 import pytest
 import yaml
 
-from nodelab.utils import utils
+from nodelab._utils import _utils
 
 
 @pytest.fixture
@@ -28,7 +28,7 @@ def temp_yaml_file(sample_data):
 
 def test_load_yaml(sample_data, temp_yaml_file):
 
-    workflow = utils.read_yaml(temp_yaml_file)
+    workflow = _utils.read_yaml(temp_yaml_file)
 
     assert sample_data == workflow
 
@@ -42,7 +42,7 @@ def temp_yaml_path():
 
 
 def test_write_yaml(sample_data, temp_yaml_path):
-    utils.write_yaml(sample_data, temp_yaml_path)
+    _utils.write_yaml(sample_data, temp_yaml_path)
 
     with open(temp_yaml_path, "r") as file:
         loaded_data = yaml.safe_load(file)

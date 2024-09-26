@@ -1,11 +1,10 @@
 import os
 import shutil
-import sys
 import tempfile
 
 import pytest
 
-from nodelab.core.discovery import (
+from nodelab._core._discovery import (
     CACHE_FILE,
     load_cache,
     save_cache,
