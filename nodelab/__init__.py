@@ -1,3 +1,4 @@
-from ._api import configure, delete_cache, scan
+from ._api import clear_cache, configure, scan
+from ._core._node import node
 
-__all__ = ["configure", "delete_cache", "scan"]
+__all__ = ["configure", "clear_cache", "scan", "node"]

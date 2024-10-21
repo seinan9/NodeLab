@@ -1,11 +1,10 @@
-from ._core._discovery import clear_cache, scan_directory_for_nodes
-
-project_directory = None
+from ._core._discovery import scan_directory_for_nodes
+from ._utils._configuration import CACHE_FILE, configure, project_directory
+from ._utils._utils import delete_file
 
 
 def configure(directory):
-    global project_directory
-    project_directory = directory
+    return configure(directory)
 
 
 def scan():
@@ -13,5 +12,5 @@ def scan():
     return nodes
 
 
-def delete_cache():
-    clear_cache()
+def clear_cache():
+    delete_file(CACHE_FILE)

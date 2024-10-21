@@ -1,36 +1,18 @@
 import ast
 import os
 
-import yaml
-
-CACHE_FILE = "cache.yaml"
-
-
-def get_file_mod_time(filepath):
-    return os.path.getmtime(filepath)
-
-
-def load_cache():
-    if os.path.exists(CACHE_FILE):
-        with open(CACHE_FILE, "r") as file:
-            return yaml.safe_load(file) or {}
-    return {}
-
-
-def save_cache(data):
-    with open(CACHE_FILE, "w") as file:
-        yaml.dump(data, file, default_flow_style=False)
-
-
-def clear_cache():
-    os.remove(CACHE_FILE)
+from .._utils._configuration import CACHE_FILE
+from .._utils._utils import get_file_mod_time, read_yaml, write_yaml
 
 
 def scan_directory_for_nodes(dir):
-    cache = load_cache()
+    try:
+        cache = read_yaml(CACHE_FILE)
+    except FileNotFoundError:
+        cache = {}
+
     node_file_map = cache.get("node_file_map", {})
     last_modified = cache.get("last_modified", {})
-
     current_mod_times = {}
     is_cache_valid = True
 
@@ -55,7 +37,7 @@ def scan_directory_for_nodes(dir):
             "node_file_map": node_file_map,
             "last_modified": current_mod_times,
         }
-        save_cache(cache_data)
+        write_yaml(cache_data, CACHE_FILE)
 
     return node_file_map
 

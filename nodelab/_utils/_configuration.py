@@ -1,6 +1,11 @@
-project_dir = None
+import os
+
+DEFAULT_PROJECT_DIRECTORY = os.getcwd()
+CACHE_FILE = "cache.yaml"
+
+project_directory = DEFAULT_PROJECT_DIRECTORY
 
 
-def set_project_dir(dir):
-    global project_dir
-    project_dir = dir
+def configure(project_dir):
+    global project_directory
+    project_directory = project_dir
