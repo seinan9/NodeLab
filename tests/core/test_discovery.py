@@ -67,9 +67,7 @@ def create_cache(cache_file, node_file_map, last_modified):
 
 
 def test_scan_directory_for_nodes_valid_cache(temp_directory_with_nodes):
-    temp_dir, expected = temp_directory_with_nodes
-    for file in []
-
+    pass
 
 
 def test_scan_directory_for_nodes_invalid_cache():
