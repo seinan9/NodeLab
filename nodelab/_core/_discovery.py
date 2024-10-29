@@ -18,19 +18,19 @@ def scan_directory_for_nodes(dir):
 
     for root, _, files in os.walk(dir):
         for filename in files:
-            filepath = os.path.join(root, filename)
-            file_mod_time = get_file_mod_time(filepath)
-            current_mod_times[filepath] = file_mod_time
+            if filename.endswith(".py"):
+                filepath = os.path.join(root, filename)
+                file_mod_time = get_file_mod_time(filepath)
+                current_mod_times[filepath] = file_mod_time
 
-            if (
-                filepath not in last_modified
-                or last_modified[filepath] != file_mod_time
-            ):
-                is_cache_valid = False
-
-                with open(filepath, "r") as file:
-                    node_tree = ast.parse(file.read(), filename=filepath)
-                    node_file_map.update(find_nodes_in_ast(node_tree, filepath))
+                if (
+                    filepath not in last_modified
+                    or last_modified[filepath] != file_mod_time
+                ):
+                    is_cache_valid = False
+                    with open(filepath, "r") as file:
+                        node_tree = ast.parse(file.read(), filename=filepath)
+                        node_file_map.update(find_nodes_in_ast(node_tree, filepath))
 
     if not is_cache_valid:
         cache_data = {

@@ -17,18 +17,30 @@ from nodelab.core.node import node
 
 @node
 class MyNode:
-    pass
+    def __init__(self, param):
+        self.param = param
+    
+    def run(self):
+        return self.param
 """,
         "file2.py": """
 class NotANode:
-    pass
+    def __init__(self):
+        pass
+    
+    def run(self):
+        return "I am not a node"
 """,
         "subdir/file3.py": """
 from nodelab.core.node import node
 
 @node
 class AnotherNode:
-    pass
+    def __init__(self, param):
+        self.param = param
+    
+    def run(self):
+        return self.param * 2
 """,
     }
 
@@ -39,6 +51,7 @@ class AnotherNode:
         with open(file_path, "w") as file:
             file.write(content)
 
+    # Adjust expected values to match the class names
     expected = {
         "MyNode": os.path.join(temp_dir, "file1.py"),
         "AnotherNode": os.path.join(temp_dir, "subdir", "file3.py"),
