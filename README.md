@@ -5,25 +5,15 @@ NodeLab is a Python framework for research, enabling easy experimentation, flexi
 
 To install NodeLab, follow these steps:
 
-1. Clone the repository:
+1. **Download the release** from the GitHub repository. You can use `curl` to download the `.tar.gz` file:
    
-  ```bash
-  git clone https://github.com/seinan9/NodeLab.git
-  ```
+   ```bash
+   curl -L -o nodelab-1.0.0.tar.gz https://github.com/seinan9/NodeLab/releases/download/v1.0.0/nodelab-1.0.0.tar.gz
 
-2. Navigate to the cloned directory:
+2. **Install the library** using pip:
+
+   ```bash
+   pip install nodelab-1.0.0.tar.gz
+   ```
    
-  ```bash
-  cd nodelab
-  ```
-
-3. Install the library using `pip`:
-
- ```bash
- pip install .
- ```
-This will install NodeLab and it's dependencies (pyyaml).
-
-## Usage
-
-TODO
+This wil install NodeLab and it's dependencies (pyyaml).
