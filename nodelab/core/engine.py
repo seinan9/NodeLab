@@ -15,19 +15,21 @@ class Engine:
     def run(self):
         total_nodes = len(self.workflow.nodes)
         workflow_start_time = time.time()
-        logger.info("Executing workflow...")
+        logger.info("Executing workflow")
 
         for index, node in enumerate(self.workflow.nodes, start=1):
             node_name = node["node"]
             node_id = node.get("id", node_name)
             params = node.get("params", {})
 
-            # Import and preprare node
+            # Import node
             node_class = self._import_node(node_name)
+
+            # Resolve parameters
             resolved_params = self._resolve_params(params)
 
             # Log start
-            logger.info("Executing node %s...", node_name)
+            logger.info("Executing node %s", node_name)
 
             # Execute node and measure time
             start_time = time.time()

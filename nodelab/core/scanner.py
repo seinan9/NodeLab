@@ -12,7 +12,7 @@ class Scanner:
         self.project_dir = project_dir
 
     def scan_project_directory(self):
-        logger.info("Scanning project directory for nodes...")
+        logger.info("Scanning project directory for nodes")
         start_time = time.time()
 
         # Get up to date mtimes
