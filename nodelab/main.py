@@ -1,5 +1,6 @@
 import argparse
 import logging
+import os
 from pathlib import Path
 
 from nodelab.core.cache import Cache
@@ -32,6 +33,12 @@ def setup_logging(output_dir=None, level="INFO"):
 def main():
     # --- Setup ---
 
+    # Read environment variables
+    project_dir = Path(os.getenv("NODELAB_PROJECT_DIR", os.getcwd())).resolve()
+    cache_file = Path(
+        os.getenv("NODELAB_CACHE_FILE", os.path.join(os.getcwd(), "nodelab-cache.yaml"))
+    ).resolve()
+
     # Set up argument parser
     parser = argparse.ArgumentParser(prog="NodeLab", description="Run a workflow.")
 
@@ -41,18 +48,6 @@ def main():
         "-o",
         "--output_dir",
         help="Output directory where workflow, log and artifacts will be stored",
-    )
-    parser.add_argument(
-        "-p",
-        "--project_dir",
-        help="Project directory (default: current working directory)",
-        default=Path.cwd(),
-    )
-    parser.add_argument(
-        "-c",
-        "--cache_file",
-        help="Cache file (default: cwd/.nodelab-cache.yaml)",
-        default=Path.cwd() / ".nodelab-cache.yaml",
     )
     parser.add_argument(
         "-l",
@@ -68,23 +63,22 @@ def main():
     # Process the arguments
     workflow_file = Path(args.workflow_file).resolve()
     output_dir = Path(args.output_dir).resolve() if args.output_dir else None
-    project_dir = Path(args.project_dir).resolve()
-    cache_file = Path(args.cache_file).resolve()
     level = args.level
 
     # Set up logging
     setup_logging(output_dir=output_dir, level=level)
 
-    logger.info("--- Arguments ---")
-    logger.info("Workflow file: %s", workflow_file)
-    logger.info("Output directory: %s", output_dir)
     logger.info("Project directory: %s", project_dir)
     logger.info("Cache file: %s", cache_file)
+
+    logger.info("-----")
+    logger.info("Workflow file: %s", workflow_file)
+    logger.info("Output directory: %s", output_dir)
     logger.info("Log level: %s", level)
 
     # --- Preparation and Execution ---
 
-    logger.info("--- Preparation ---")
+    logger.info("-----")
     # Load workflow
     workflow = Workflow(workflow_file)
     workflow.load()
@@ -102,7 +96,7 @@ def main():
     scanner.scan_project_directory()
     cache.write()
 
-    logger.info("--- Execution ---")
+    logger.info("-----")
 
     # Run workflow
     engine = Engine(workflow, cache)
