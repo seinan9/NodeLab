@@ -28,7 +28,7 @@ class Workflow:
             raise ValueError("Invalid workflow structure")
 
         self.nodes = workflow_data["nodes"]
-        logger.info("Loaded workflow with %d nodes", len(self.nodes))
+        logger.info("Loaded workflow with %d node(s)", len(self.nodes))
 
     # Write the workflow
     def write(self, output_file: Path):

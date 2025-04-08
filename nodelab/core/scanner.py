@@ -58,7 +58,7 @@ class Scanner:
         duration = time.time() - start_time
 
         logger.info(
-            "Scanned %i files, %i updated, %i new nodes found, in %.3f seconds",
+            "Scanned %i file(s), %i updated, %i new node(s) found, in %.3f seconds",
             len(file_mtimes),
             len(files_to_parse),
             len(new_node_files),
